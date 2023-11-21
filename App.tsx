@@ -1,8 +1,9 @@
 import { useFonts, Roboto_400Regular, Roboto_700Bold} from '@expo-google-fonts/roboto'
-import { } from 'react-native'
 
 import { ThemeProvider} from 'styled-components/native'
 import theme from './src/theme';
+
+import {StatusBar } from 'react-native'
 
 import { SingIn } from './src/screens/SingIn';
 import { Loading } from './src/components/Loading';
@@ -16,6 +17,11 @@ export default function App() {
   }
   return (
     <ThemeProvider theme={theme}>
+      <StatusBar 
+        barStyle="light-content" 
+        backgroundColor="transparent" 
+        translucent 
+      />
       <SingIn />
     </ThemeProvider>
   );
