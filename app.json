@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#202024"
-      }
+      },
+      "package": "com.italobessa.ignitefleet2"
     },
     "web": {
       "favicon": "./assets/favicon.png"
