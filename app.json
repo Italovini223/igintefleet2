@@ -2,6 +2,7 @@
   "expo": {
     "name": "igintefleet2",
     "slug": "igintefleet2",
+    "scheme": "igintefleet2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
