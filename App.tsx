@@ -2,6 +2,8 @@ import { useFonts, Roboto_400Regular, Roboto_700Bold} from '@expo-google-fonts/r
 
 import { AppProvider, UserProvider } from '@realm/react'
 
+import { RealmProvider } from './src/libs/realm'
+
 import { ThemeProvider} from 'styled-components/native'
 import theme from './src/theme';
 
@@ -35,7 +37,9 @@ export default function App() {
             translucent 
           />
           <UserProvider fallback={SingIn}>
-            <Routes />
+            <RealmProvider>
+              <Routes />
+            </RealmProvider>
           </UserProvider>
         </SafeAreaProvider>
       </ThemeProvider>
