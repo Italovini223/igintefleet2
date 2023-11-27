@@ -1,3 +1,5 @@
+import 'react-native-get-random-values'
+
 import { useFonts, Roboto_400Regular, Roboto_700Bold} from '@expo-google-fonts/roboto'
 
 import { AppProvider, UserProvider } from '@realm/react'
