@@ -69,7 +69,7 @@ export function Departure() {
     <Container>
       <Header title='Saida'/>
 
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView>
           <Content>
             <LicensePlateInput 

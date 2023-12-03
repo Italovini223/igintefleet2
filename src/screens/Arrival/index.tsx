@@ -92,8 +92,10 @@ export function Arrival() {
         <Description>
           {historic?.description}
         </Description>
-        {
-          historic?.status === 'departure' &&
+
+      </Content>
+      {
+        historic?.status === 'departure' &&
           <Footer>
             <ButtonIcon 
               icon={X}
@@ -104,9 +106,7 @@ export function Arrival() {
               onPress={handleArrivalRegister}
             />
           </Footer>
-        }
-
-      </Content>
+      }
 
     </Container>
   );
