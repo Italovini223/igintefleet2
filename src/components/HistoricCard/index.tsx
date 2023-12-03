@@ -19,7 +19,7 @@ type Props = TouchableOpacityProps & {
 export function HistoricCard({ data: { created, licensePlate, isSync }, ...rest}: Props) {
   const { COLORS } = useTheme()
   return (
-    <Container {...rest}>
+    <Container activeOpacity={0.7} {...rest}>
       <Info>
         <LicensePlate>
           {licensePlate}
