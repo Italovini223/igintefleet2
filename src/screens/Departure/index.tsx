@@ -1,10 +1,12 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { TextInput, ScrollView, Alert} from 'react-native'
 
 import { useRealm } from '../../libs/realm'
 import { Historic } from '../../libs/realm/schemas/Historic'
 
 import { useUser } from '@realm/react'
+
+import { useForegroundPermissions } from "expo-location"
 
 import { useNavigation } from '@react-navigation/native'
 
@@ -15,7 +17,7 @@ import { Header } from '../../components/Header'
 import { LicensePlateInput } from '../../components/LicensePlateInput'
 import { TextAreaInput } from '../../components/TextAreaInput'
 
-import { Container, Content } from './styles'
+import { Container, Content, Message } from './styles'
 import { licensePlateValidade } from '../../utils/licensePlateValidate'
 
 export function Departure() {
@@ -23,6 +25,7 @@ export function Departure() {
   const [licensePlate, setLicensePlate] = useState('');
   const [isRegistering, setIsRegistering] = useState(false)
 
+  const [locationForegroundPermission, requestLocationForegroundPermission] = useForegroundPermissions()
   const { goBack } = useNavigation()
 
   const realm = useRealm();
@@ -63,6 +66,22 @@ export function Departure() {
     } finally {
       setIsRegistering(false)
     }
+  }
+
+  useEffect(() => {
+    requestLocationForegroundPermission()
+  }, [])
+
+  if(!locationForegroundPermission?.granted){
+    return(
+      <Container>
+        <Header title='Saida'/>
+        <Message>
+          Voce precisa permitir que o app tenha acesso a localização para utilizar essa funcionalidade.
+          Por favor, acesse as configurações do dispositivo para conceder essa permissão ao app
+        </Message>
+      </Container>
+    )
   }
 
   return (
