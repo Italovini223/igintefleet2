@@ -12,6 +12,8 @@ import { useNavigation } from '@react-navigation/native'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+import { getAddressLocation } from '../../utils/getAddressLocation'
+
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 import { LicensePlateInput } from '../../components/LicensePlateInput'
@@ -82,7 +84,8 @@ export function Departure() {
       accuracy: LocationAccuracy.High,
       timeInterval: 1000
     }, (location) => {
-      console.log(location)
+      getAddressLocation(location.coords)
+      .then((address) => { console.log(address)})
     }).then((response) => subscription = response)
 
     return () => {
