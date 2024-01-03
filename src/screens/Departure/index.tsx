@@ -85,9 +85,13 @@ export function Departure() {
       console.log(location)
     }).then((response) => subscription = response)
 
-    return () => subscription.remove()
+    return () => {
+      if(subscription){
+        subscription.remove()
+      }
+    }
 
-  }, [locationForegroundPermission])
+  }, [locationForegroundPermission?.granted])
 
   if(!locationForegroundPermission?.granted){
     return(
