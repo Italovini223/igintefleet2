@@ -4,6 +4,8 @@ import { TextInput, ScrollView, Alert} from 'react-native'
 import { useRealm } from '../../libs/realm'
 import { Historic } from '../../libs/realm/schemas/Historic'
 
+import { LocationObjectCoords } from 'expo-location'
+
 import { useUser } from '@realm/react'
 
 import { useForegroundPermissions, watchPositionAsync, LocationAccuracy, LocationSubscription } from "expo-location"
@@ -22,6 +24,7 @@ import { LicensePlateInput } from '../../components/LicensePlateInput'
 import { TextAreaInput } from '../../components/TextAreaInput'
 import { Loading } from '../../components/Loading'
 import { LocationInfo } from '../../components/LocationInfo'
+import { Map } from '../../components/Map'
 
 import { Container, Content, Message } from './styles'
 import { licensePlateValidade } from '../../utils/licensePlateValidate'
@@ -32,6 +35,7 @@ export function Departure() {
   const [isRegistering, setIsRegistering] = useState(false)
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
   const [currentAddress, setCurrentAddress] = useState<string | null>(null);
+  const [currentCoords, setCurrentCoords] = useState<LocationObjectCoords | null>(null)
 
   const [locationForegroundPermission, requestLocationForegroundPermission] = useForegroundPermissions()
   const { goBack } = useNavigation()
@@ -90,6 +94,8 @@ export function Departure() {
       accuracy: LocationAccuracy.High,
       timeInterval: 1000
     }, (location) => {
+      setCurrentCoords(location.coords)
+
       getAddressLocation(location.coords)
       .then((address) => { 
         if(address){
@@ -132,6 +138,10 @@ export function Departure() {
 
       <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView>
+          {
+            currentCoords &&
+            <Map coordinates={[currentCoords]}/>
+          }
           <Content>
 
             {
