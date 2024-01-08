@@ -140,26 +140,7 @@ export function Departure() {
         <ScrollView>
           {
             currentCoords &&
-            <Map coordinates={[
-              {
-                latitude: -20.104897280091382,
-                longitude: -44.97175101057749
-              },
-              {
-                latitude: -20.105303853375197,
-                longitude: -44.9720437327548
-              },
-
-              {
-                latitude: -20.105710632863225,
-                longitude: -44.97144425904235
-              },
-              {
-                latitude: -20.105749043874333,
-                longitude: -44.97125315165608
-              },
-
-            ]}/>
+            <Map coordinates={[currentCoords]}/>
           }
           <Content>
 
