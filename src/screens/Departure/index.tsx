@@ -8,7 +8,12 @@ import { LocationObjectCoords } from 'expo-location'
 
 import { useUser } from '@realm/react'
 
-import { useForegroundPermissions, watchPositionAsync, LocationAccuracy, LocationSubscription } from "expo-location"
+import { useForegroundPermissions, 
+  watchPositionAsync, 
+  LocationAccuracy, 
+  LocationSubscription,
+  requestBackgroundPermissionsAsync
+} from "expo-location"
 
 import { useNavigation } from '@react-navigation/native'
 
@@ -47,7 +52,7 @@ export function Departure() {
   const licensePlateRef = useRef<TextInput>(null)
   
 
-  function handleDepartureRegister(){
+  async function handleDepartureRegister(){
     try {
       if(!licensePlateValidade(licensePlate)){
         licensePlateRef.current?.focus();
@@ -64,6 +69,13 @@ export function Departure() {
       }
       
       setIsRegistering(true)
+
+      const backgroundPermissions = await requestBackgroundPermissionsAsync()
+
+      if(!backgroundPermissions.granted){
+        setIsRegistering(false)
+        return Alert.alert("Localização", "E necessário permitir que o app tenha acesso a localização em segundo plano. Acesse as configurações do dispositive e habilite")
+      }
 
       realm.write(() => {
         realm.create('Historic', Historic.generate({

@@ -42,7 +42,7 @@
         "backgroundColor": "#202024"
       },
       "package": "com.italobessa.ignitefleet2",
-      "permission": [
+      "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
         "ACCESS_BACKGROUND_LOCATION"
