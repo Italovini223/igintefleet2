@@ -28,7 +28,7 @@ export function Map({ coordinates, ...rest}: Props){
 
   return(
    <MapView 
-   ref={mapRef}
+    ref={mapRef}
     provider={PROVIDER_GOOGLE}
     style={{
       width: '100%',
