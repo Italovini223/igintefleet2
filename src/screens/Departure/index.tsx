@@ -23,6 +23,9 @@ import { getAddressLocation } from '../../utils/getAddressLocation'
 
 import { Car } from 'phosphor-react-native'
 
+import { startLocationTask } from '../../tasks/backgroundLocationTask'
+import { licensePlateValidade } from '../../utils/licensePlateValidate'
+
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 import { LicensePlateInput } from '../../components/LicensePlateInput'
@@ -32,7 +35,6 @@ import { LocationInfo } from '../../components/LocationInfo'
 import { Map } from '../../components/Map'
 
 import { Container, Content, Message } from './styles'
-import { licensePlateValidade } from '../../utils/licensePlateValidate'
 
 export function Departure() {
   const [description, setDescription] = useState('');
@@ -76,6 +78,8 @@ export function Departure() {
         setIsRegistering(false)
         return Alert.alert("Localização", "E necessário permitir que o app tenha acesso a localização em segundo plano. Acesse as configurações do dispositive e habilite")
       }
+
+      await startLocationTask()
 
       realm.write(() => {
         realm.create('Historic', Historic.generate({
