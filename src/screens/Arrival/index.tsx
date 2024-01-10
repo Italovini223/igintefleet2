@@ -15,6 +15,7 @@ import { ButtonIcon } from '../../components/ButtonIcon'
 import { Container, Content, Description, Footer, Label, LicensePlate, AsyncMessage } from './styles'
 import { BSON } from 'realm'
 import { getLastSyncTimestamp } from '../../libs/asyncStorage/syncStorage'
+import { stopLocationTask } from '../../tasks/backgroundLocationTask'
 
  type RoutePramsProps = {
   id: string;
@@ -55,11 +56,13 @@ export function Arrival() {
    goBack();
   }
 
-  function handleArrivalRegister(){
+  async function handleArrivalRegister(){
     try {
       if(!historic){
         return Alert.alert("Erro", "Nao foi possível obter os dados para registrar a chegada do veiculo")
       }
+
+      await stopLocationTask()
 
       realm.write(() => {
           historic.status = 'arrival';
