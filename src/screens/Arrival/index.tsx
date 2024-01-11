@@ -7,6 +7,7 @@ import { Alert } from 'react-native'
 
 import { useObject , useRealm } from '../../libs/realm'
 import { Historic } from '../../libs/realm/schemas/Historic'
+import { getStorageLocations } from '../../libs/asyncStorage/locationStorage'
 
 import { Header } from '../../components/Header'
 import { Button } from '../../components/Button'
@@ -79,9 +80,19 @@ export function Arrival() {
     }
   }
 
+  async function getLocationsInfo(){
+    const lastSync = await getLastSyncTimestamp();
+    const updatedAt = historic!.updated_at.getTime();
+    setDataNotSynced(updatedAt > lastSync);
+
+    const locationsStorage = await getStorageLocations();
+
+    console.log("STORAGE =>", locationsStorage);
+  }
+
   useEffect(() => {
-    getLastSyncTimestamp().then(lastSync => setDataNotSynced(historic!.updated_at.getTime() > lastSync))
-  }, [])
+    getLocationsInfo()
+  }, [historic])
 
   return (
     <Container>
