@@ -7,7 +7,9 @@ import { Alert } from 'react-native'
 
 import { useObject , useRealm } from '../../libs/realm'
 import { Historic } from '../../libs/realm/schemas/Historic'
+
 import { getStorageLocations } from '../../libs/asyncStorage/locationStorage'
+import { LatLng } from 'react-native-maps'
 
 import { Header } from '../../components/Header'
 import { Button } from '../../components/Button'
@@ -17,6 +19,7 @@ import { Container, Content, Description, Footer, Label, LicensePlate, AsyncMess
 import { BSON } from 'realm'
 import { getLastSyncTimestamp } from '../../libs/asyncStorage/syncStorage'
 import { stopLocationTask } from '../../tasks/backgroundLocationTask'
+import { Map } from '../../components/Map'
 
  type RoutePramsProps = {
   id: string;
@@ -24,6 +27,7 @@ import { stopLocationTask } from '../../tasks/backgroundLocationTask'
 
 export function Arrival() {
   const [dataNotSynced, setDataNotSynced] = useState(false)
+  const [coordinates, setCoordinates] = useState<LatLng[]>([])
 
   const route = useRoute()
   const { id } = route.params as RoutePramsProps;
@@ -87,7 +91,7 @@ export function Arrival() {
 
     const locationsStorage = await getStorageLocations();
 
-    console.log("STORAGE =>", locationsStorage);
+    setCoordinates(locationsStorage)
   }
 
   useEffect(() => {
@@ -99,6 +103,13 @@ export function Arrival() {
       <Header 
         title={title}
       />
+
+      {
+        coordinates.length > 0 &&
+        <Map 
+          coordinates={coordinates}
+        />
+      }
       <Content>
         <Label >
           Placa do veiculo
