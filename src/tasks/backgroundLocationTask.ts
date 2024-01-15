@@ -45,7 +45,7 @@ export async function startLocationTask() {
     await startLocationUpdatesAsync(BACKGROUND_TASK_NAME, {
       accuracy: Accuracy.Highest,
       distanceInterval: 1,
-      timeInterval: 1000
+      timeInterval: 5000
     })
   } catch (error) {
     console.log(error)
