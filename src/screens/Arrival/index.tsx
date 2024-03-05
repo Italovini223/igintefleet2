@@ -104,7 +104,13 @@ export function Arrival() {
       const locationsStorage = await getStorageLocations();
       setCoordinates(locationsStorage);
     } else {
-      setCoordinates(historic?.coords ?? []);
+      const coords = historic?.coords.map((coord) => {
+        return {
+          latitude: coord.latitude,
+          longitude: coord.longitude
+        }
+      })
+      setCoordinates(coords ?? []);
     }
 
     
